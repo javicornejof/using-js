@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ejercicio 1</title>
+  </head>
+
+  <body>
+    <div>
+      <div style="width: 40%; margin: 0 auto">
+        <h2>Escríbenos !!!</h2>
+        <div class="resultado" style="color: green; font-style: italic"></div>
+        <form id="formulario">
+          <div>
+            <div style="display: flex; flex-direction: column">
+              <label> Nombre completo </label>
+              <input id="nombre" type="text" />
+              <p class="errorNombre" style="color: red; font-style: italic"></p>
+            </div>
+            <div style="display: flex; flex-direction: column">
+              <label> Asunto </label>
+              <input id="asunto" type="text" />
+              <p class="errorAsunto" style="color: red; font-style: italic"></p>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column">
+            <label> Mensaje </label>
+            <textarea id="mensaje"></textarea>
+            <p class="errorMensaje" style="color: red; font-style: italic"></p>
+          </div>
+          <div>
+            <button id="botton" type="submit">Envíar mensaje</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      // Escríbe aquí tu código
+
+      var form = document.getElementById("formulario");
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        limpiarPantalla();
+        let textNombre = document.querySelector("#nombre").value;
+        let textAsunto = document.querySelector("#asunto").value;
+        let textMensaje = document.querySelector("#mensaje").value;
+        let resultado = validar(textNombre, textAsunto, textMensaje);
+        if (resultado) {
+          exito();
+        }
+      });
+      function limpiarPantalla() {
+        document.querySelector(".resultado").innerHTML = "";
+        document.querySelector(".errorNombre").innerHTML = "";
+        document.querySelector(".errorAsunto").innerHTML = "";
+        document.querySelector(".errorMensaje").innerHTML = "";
+      }
+      function exito() {
+        document.querySelector(".resultado").innerHTML =
+          "Mensaje recibido con éxito!!!";
+      }
+      function validar(nombre, asunto, mensaje) {
+        let validar = true;
+        let validacionNombre = /^[A-Za-z\s]+$/gim;
+        if (!validacionNombre.test(nombre)) {
+          document.querySelector(".errorNombre").innerHTML =
+            "El nombre es requerido.";
+          validar = false;
+        }
+        let validacionAsunto = /^[A-Za-z\s]+$/gim;
+        if (!validacionAsunto.test(asunto)) {
+          document.querySelector(".errorAsunto").innerHTML =
+            "El asunto es requerido.";
+          validar = false;
+        }
+        let validacionMensaje = /^[A-Za-z\s]+$/gim;
+        if (!validacionMensaje.test(mensaje)) {
+          document.querySelector(".errorMensaje").innerHTML =
+            "El mensaje es requerido.";
+          validar = false;
+        }
+        return validar;
+      }
+    </script>
+  </body>
+</html>
